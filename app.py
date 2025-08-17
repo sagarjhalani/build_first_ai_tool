@@ -14,7 +14,7 @@ if not GOOGLE_API_KEY:
 
 llm = ChatGoogleGenerativeAI(model="gemini-1.5-flash-latest")
 
-foodoptions_template = """Suggest [number] food options for {meal_type} that are {diet_type} and high in protein. The options should be varied, tasty, and practical to prepare. Present the output in a table with the following columns:
+foodoptions_template = """Suggest {number} food options for {meal_type} that are {diet_type} and high in protein. The options should be varied, tasty, and practical to prepare. Present the output in a table with the following columns:
 
 | Dish Name | Short Description | Main Ingredients | Approx. Protein (g/serving) |
 
@@ -36,9 +36,11 @@ st.header("Protein Rich Food Options")
 
 st.subheader("Generate food options for your day using Generative AI 🤖")
 
-meal_type = st.text_input("Meal Type")
+# Use selectbox for meal type
+meal_type = st.selectbox("Select Meal Type", ["breakfast", "lunch", "dinner"])
 
-diet_type = st.text_input("Diet Type")
+# Use selectbox for diet type
+diet_type = st.selectbox("Select Diet Type", ["vegetarian", "non-vegetarian"])
 
 number = st.number_input("Number of foodoptions", min_value = 1, max_value = 10, value = 1, step = 1)
 
