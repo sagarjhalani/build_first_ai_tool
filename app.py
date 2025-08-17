@@ -2,10 +2,15 @@ import streamlit as st
 from langchain_google_genai import ChatGoogleGenerativeAI
 from langchain import LLMChain
 from langchain import PromptTemplate
-from google.colab import userdata
 import os
 
-GOOGLE_API_KEY=userdata.get('GOOGLE_API_KEY')
+# Get the API key from environment variables
+GOOGLE_API_KEY = os.environ.get('GOOGLE_API_KEY')
+
+# Ensure the API key is set
+if not GOOGLE_API_KEY:
+    st.error("Google API Key not found. Please set the GOOGLE_API_KEY environment variable.")
+    st.stop() # Stop the Streamlit app if the API key is not set
 
 llm = ChatGoogleGenerativeAI(model="gemini-1.5-flash-latest")
 
